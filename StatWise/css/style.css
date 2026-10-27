@@ -1,0 +1,513 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --navy: #142B4D;
+    --navy-light: #1D3B65;
+    --blue: #2864D7;
+    --blue-hover: #1F53B8;
+    --blue-pale: #EAF1FF;
+    --purple: #7356D8;
+    --text: #192B43;
+    --muted: #78869A;
+    --line: #E5EAF1;
+    --page: #F6F8FC;
+    --white: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', Arial, sans-serif;
+    color: var(--text);
+    background: var(--page);
+    min-width: 320px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font: inherit;
+}
+
+.app-shell {
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 20;
+    width: 252px;
+    padding: 27px 17px 17px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background: var(--navy);
+    color: #D7E2F2;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 0 10px 31px;
+}
+
+.brand-logo {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #254775;
+    border: 1px solid #345782;
+    color: #8AB7FF;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.brand h2 {
+    color: white;
+    font-family: 'Manrope', sans-serif;
+    font-size: 21px;
+    letter-spacing: -1px;
+}
+
+.brand h2 span {
+    color: #8AB7FF;
+}
+
+.brand small {
+    display: block;
+    margin-top: 3px;
+    color: #94A9C5;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.nav-heading {
+    margin: 3px 0 10px;
+    padding: 0 12px;
+    color: #8399B7;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.navigation {
+    display: grid;
+    gap: 5px;
+}
+
+.nav-link {
+    min-height: 44px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #B9C9DE;
+    font-size: 12px;
+    transition: 0.2s ease;
+}
+
+.nav-link > span {
+    width: 20px;
+    text-align: center;
+    color: #A8C7F5;
+    font-size: 20px;
+}
+
+.nav-link:hover {
+    color: white;
+    background: #1A365B;
+}
+
+.nav-link.active {
+    color: white;
+    background: #244A7A;
+    border-color: #315C91;
+    box-shadow: inset 3px 0 #7EAEFF;
+}
+
+.learn-heading {
+    margin-top: 29px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+.sidebar-tip {
+    padding: 16px 14px;
+    border: 1px solid #2D4B70;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #1B3A61, #172F50);
+}
+
+.tip-symbol {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background: #2B4F7A;
+    color: #A9C9FF;
+}
+
+.sidebar-tip h4 {
+    margin-bottom: 7px;
+    color: white;
+    font-size: 12px;
+}
+
+.sidebar-tip p {
+    margin-bottom: 13px;
+    color: #AABBD1;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.sidebar-tip a {
+    color: #9CC0FF;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.sidebar-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 5px 0;
+    color: #8399B7;
+    font-size: 10px;
+}
+
+.sidebar-status span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #55C49A;
+}
+
+/* MAIN CONTENT */
+
+.main-content {
+    min-height: 100vh;
+    margin-left: 252px;
+}
+
+.topbar {
+    height: 72px;
+    padding: 0 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: white;
+    border-bottom: 1px solid var(--line);
+}
+
+.breadcrumb {
+    color: #8995A6;
+    font-size: 12px;
+}
+
+.breadcrumb span {
+    margin: 0 10px;
+    color: #C0C8D3;
+}
+
+.breadcrumb strong {
+    color: #293C55;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #8995A6;
+    font-size: 11px;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #2856A0;
+    background: #E4EDFF;
+    border: 2px solid white;
+    outline: 1px solid #D9E4F5;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.page-content {
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 31px 38px 20px;
+}
+
+.eyebrow {
+    margin-bottom: 9px;
+    color: #6382B1;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+}
+
+/* BUTTONS */
+
+.primary-button {
+    min-height: 42px;
+    padding: 0 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 9px;
+    color: white;
+    background: var(--blue);
+    box-shadow: 0 5px 13px #2864D726;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.primary-button:hover {
+    background: var(--blue-hover);
+    transform: translateY(-1px);
+}
+
+.primary-button span {
+    font-size: 17px;
+}
+
+/* FOOTER */
+
+.page-footer {
+    padding: 23px 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    color: #95A0B0;
+    font-size: 9px;
+}
+
+.page-footer a {
+    color: #587CB5;
+    font-weight: 600;
+}
+
+/* MOBILE SIDEBAR */
+
+.sidebar-overlay {
+    display: none;
+}
+
+
+/* =================================
+   STATWISE - LARGER FONT SIZES
+   ================================= */
+
+body {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Sidebar */
+.brand h2 {
+    font-size: 25px;
+}
+
+.brand small {
+    font-size: 10px;
+}
+
+.nav-heading {
+    font-size: 12px;
+}
+
+.nav-link {
+    font-size: 14px;
+    min-height: 48px;
+}
+
+.sidebar-tip h4 {
+    font-size: 14px;
+}
+
+.sidebar-tip p {
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.sidebar-tip a {
+    font-size: 12px;
+}
+
+.sidebar-status {
+    font-size: 12px;
+}
+
+/* Top navigation */
+.breadcrumb {
+    font-size: 14px;
+}
+
+.topbar-right {
+    font-size: 13px;
+}
+
+/* Buttons and footer */
+.primary-button {
+    font-size: 13px;
+}
+
+.page-footer {
+    font-size: 12px;
+}
+
+/* Keep text readable on smaller screens */
+@media (max-width: 650px) {
+    .nav-link {
+        font-size: 15px;
+    }
+
+    .breadcrumb {
+        font-size: 12px;
+    }
+
+    .primary-button {
+        font-size: 14px;
+    }
+
+    .page-footer {
+        font-size: 12px;
+    }
+}
+
+
+/* ========================================
+   STATWISE - CONSISTENT TYPOGRAPHY
+   ======================================== */
+
+/* Main page headings */
+.main-content h1,
+.page-content h1,
+.hypothesis-page h1 {
+    font-size: 42px;
+    line-height: 1.2;
+    font-weight: 750;
+    letter-spacing: -1.2px;
+    color: var(--text, #172b4d);
+}
+
+/* Section headings */
+.main-content h2,
+.page-content h2 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+/* Card and panel headings */
+.main-content h3,
+.page-content h3 {
+    font-size: 23px;
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+/* Smaller headings */
+.main-content h4,
+.page-content h4 {
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+/* Paragraph text */
+.main-content p,
+.page-content p,
+.hypothesis-page p {
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* Small uppercase labels */
+.main-content .eyebrow,
+.page-content .eyebrow {
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+/* Top navigation */
+.topbar,
+.breadcrumb,
+.topbar-right {
+    font-size: 15px;
+}
+
+/* Sidebar navigation */
+.sidebar .nav-link {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    .main-content h1,
+    .page-content h1,
+    .hypothesis-page h1 {
+        font-size: 32px;
+        letter-spacing: -0.6px;
+    }
+
+    .main-content h2,
+    .page-content h2 {
+        font-size: 24px;
+    }
+
+    .main-content h3,
+    .page-content h3 {
+        font-size: 20px;
+    }
+
+    .main-content p,
+    .page-content p,
+    .hypothesis-page p {
+        font-size: 14px;
+    }
+}

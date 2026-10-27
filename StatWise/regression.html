@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression | StatWise</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/regression.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/analysis.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/regression.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <a href="index.html" class="brand">
+            <div class="brand-logo">Σ</div>
+            <div>
+                <h2>Stat<span>Wise</span></h2>
+                <small>STATISTICAL ANALYSIS</small>
+            </div>
+        </a>
+
+        <p class="nav-heading">WORKSPACE</p>
+
+        <nav class="navigation">
+            <a href="index.html" class="nav-link">
+                <span>⌂</span> Dashboard
+            </a>
+            <a href="regression.html" class="nav-link active">
+                <span>⌁</span> Linear Regression
+            </a>
+            <a href="hypothesis.html" class="nav-link">
+                <span>∿</span> Hypothesis Testing
+            </a>
+        </nav>
+
+        <p class="nav-heading learn-heading">LEARN</p>
+
+        <nav class="navigation">
+            <a href="guide.html" class="nav-link">
+                <span>▤</span> Statistics Guide
+            </a>
+            <a href="about.html" class="nav-link">
+                <span>ⓘ</span> About StatWise
+            </a>
+        </nav>
+    </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation">☰</button>
+
+                    <div class="breadcrumb">
+                        Workspace <span>/</span> <strong>Line Regression</strong>
+                    </div>
+
+                <div class="topbar-right">
+                    <span class="status-dot"></span>
+                    <span>Learning Mode</span>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- PAGE INTRO -->
+                <section class="page-heading">
+                    <div>
+                        <span class="eyebrow">STATISTICAL ANALYSIS / TOOL 01</span>
+                        <h1>Simple Linear Regression</h1>
+                        <p>
+                            Explore the relationship between two variables and
+                            predict outcomes using your own dataset.
+                        </p>
+                    </div>
+
+                    <div class="heading-badge">
+                        <span>↗</span>
+                        <div>
+                            <strong>Regression Analysis</strong>
+                            <small>Interactive calculator</small>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FORMULA CARD -->
+                <section class="regression-formula-card">
+                    <div class="formula-info">
+                        <span class="formula-label">REGRESSION EQUATION</span>
+                        <h2>Predict the relationship</h2>
+                        <p>
+                            A regression line describes how the predicted
+                            value of Y changes as X changes.
+                        </p>
+                    </div>
+
+                    <div class="formula-display">
+                        <span class="formula-symbol">y′ = A + Bx</span>
+                        <div class="formula-legend">
+                            <span><b>A</b> Y-intercept</span>
+                            <span><b>B</b> Slope</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ANALYSIS WORKSPACE -->
+                <section class="regression-workspace">
+
+                    <!-- DATA INPUT -->
+                    <div class="panel data-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <span class="eyebrow">STEP 01</span>
+                                <h2>Enter Your Data</h2>
+                            </div>
+                            <span class="panel-icon">▦</span>
+                        </div>
+
+                        <p class="panel-description">
+                            Enter paired numerical values for your independent
+                            variable (X) and dependent variable (Y). Load the Module 7
+                            study-hours and exam-scores example to try the lecture data.
+                        </p>
+
+                        <div class="data-actions">
+                            <button type="button" class="btn btn-secondary"
+                                id="loadSample">Load Sample Data</button>
+                            <button type="button" class="text-button"
+                                id="clearData">Clear</button>
+                        </div>
+
+                        <div class="data-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>X Value</th>
+                                        <th>Y Value</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dataRows">
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input type="number" step="any"
+                                            class="x-input" placeholder="e.g. 2"></td>
+                                        <td><input type="number" step="any"
+                                            class="y-input" placeholder="e.g. 5"></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><input type="number" step="any"
+                                            class="x-input" placeholder="e.g. 4"></td>
+                                        <td><input type="number" step="any"
+                                            class="y-input" placeholder="e.g. 7"></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><input type="number" step="any"
+                                            class="x-input" placeholder="e.g. 6"></td>
+                                        <td><input type="number" step="any"
+                                            class="y-input" placeholder="e.g. 9"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <button type="button" class="add-row-button" id="addRow">
+                            <span>＋</span> Add Data Row
+                        </button>
+
+                        <div class="input-note">
+                            <span>ⓘ</span>
+                            <p>Use at least three complete pairs of numerical data.
+                            Empty rows will be ignored.</p>
+                        </div>
+
+                        <button type="button" class="btn btn-primary calculate-button"
+                            id="calculateRegression">
+                            Calculate Regression <span>→</span>
+                        </button>
+
+                        <p class="error-message" id="errorMessage"
+                            role="alert" aria-live="polite"></p>
+                    </div>
+
+                    <!-- RESULTS -->
+                    <div class="panel results-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <span class="eyebrow">STEP 02</span>
+                                <h2>Analysis Results</h2>
+                            </div>
+                            <span class="result-status" id="resultStatus">
+                                Waiting for data
+                            </span>
+                        </div>
+
+                        <div class="empty-results" id="emptyResults">
+                            <div class="empty-icon">∑</div>
+                            <h3>Your results will appear here</h3>
+                            <p>
+                                Enter your X and Y values, then select
+                                <strong>Calculate Regression</strong> to
+                                generate your statistical results.
+                            </p>
+                        </div>
+
+                        <div id="resultsContent" hidden>
+                            <div class="equation-result">
+                                <span>YOUR REGRESSION EQUATION</span>
+                                <strong id="equationResult">y′ = —</strong>
+                            </div>
+
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <span class="metric-label">Slope (B)</span>
+                                    <strong id="slopeResult">—</strong>
+                                    <small>Change in predicted Y per X unit</small>
+                                </div>
+
+                                <div class="metric-card">
+                                    <span class="metric-label">Y-intercept (A)</span>
+                                    <strong id="interceptResult">—</strong>
+                                    <small>Predicted Y when X equals zero</small>
+                                </div>
+
+                                <div class="metric-card">
+                                    <span class="metric-label">Correlation (r)</span>
+                                    <strong id="correlationResult">—</strong>
+                                    <small>Direction and strength of linear association</small>
+                                </div>
+                            </div>
+                            
+                            <div class="relationship-card" id="relationshipCard">
+                                <div class="relationship-card-header">
+                                    <div>
+                                        <span class="eyebrow">RELATIONSHIP ANALYSIS</span>
+                                        <h3 id="relationshipTitle">Relationship Strength</h3>
+                                    </div>
+                                    <span class="relationship-icon" id="relationshipIcon">↗</span>
+                                </div>
+
+                                <div class="relationship-badges">
+                                    <span class="relationship-badge" id="relationshipDirection">
+                                        Positive Relationship
+                                    </span>
+                                    <span class="relationship-badge strength-badge" id="relationshipStrength">
+                                        Strong Relationship
+                                    </span>
+                                </div>
+
+                                <div class="relationship-scale">
+                                    <div class="relationship-scale-labels">
+                                        <span>Negative</span>
+                                        <span>No linear correlation</span>
+                                        <span>Positive</span>
+                                    </div>
+                                    <div class="relationship-scale-track">
+                                        <div class="relationship-scale-marker" id="relationshipMarker"></div>
+                                    </div>
+                                </div>
+
+                                <p id="relationshipDescription">
+                                    The relationship interpretation will appear here after calculation.
+                                </p>
+                            </div>
+
+                            <div class="interpretation-card">
+                                <div class="interpretation-icon">✦</div>
+                                <div>
+                                    <h3>Interpretation</h3>
+                                    <p id="interpretationResult">
+                                        Your interpretation will appear here.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="prediction-card">
+                                <h3>Predict a Y Value</h3>
+                                <p>Enter an X value to estimate its corresponding Y.</p>
+                                <div class="prediction-controls">
+                                    <label for="predictX">X value</label>
+                                    <input type="number" id="predictX"
+                                        step="any" placeholder="Enter X">
+                                    <button type="button" class="btn btn-primary"
+                                        id="predictButton">Predict</button>
+                                </div>
+                                <div class="prediction-output" id="predictionOutput"
+                                    aria-live="polite">
+                                    Your prediction will appear here.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CHART -->
+                <section class="panel chart-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="eyebrow">STEP 03</span>
+                            <h2>Scatter Plot & Regression Line</h2>
+                        </div>
+                        <span class="panel-icon">⌁</span>
+                    </div>
+
+                    <p class="panel-description">
+                        Observe the data points and the line of best fit.
+                        The line represents the model's predicted values.
+                    </p>
+
+                    <div class="chart-container">
+                        <canvas id="regressionChart"
+                            role="img"
+                            aria-label="Scatter plot of X and Y values with a regression line"></canvas>
+                    </div>
+
+                    <p class="chart-caption" id="chartCaption">
+                        Calculate a regression model to display your chart.
+                    </p>
+                </section>
+
+                <!-- LEARNING SECTION -->
+                <section class="learning-grid">
+                    <article class="panel learning-card">
+                        <span class="learning-number">01</span>
+                        <h3>What is Linear Regression?</h3>
+                        <p>
+                            Simple linear regression is a statistical method
+                            used to model the linear relationship between one
+                            independent variable (X) and one dependent
+                            variable (Y).
+                        </p>
+                    </article>
+
+                    <article class="panel learning-card">
+                        <span class="learning-number">02</span>
+                        <h3>Understanding the Slope</h3>
+                        <p>
+                            The slope tells you how much the predicted Y value
+                            changes when X increases by one unit. A positive
+                            slope indicates an increasing trend, while a
+                            negative slope indicates a decreasing trend.
+                        </p>
+                    </article>
+
+                    <article class="panel learning-card">
+                        <span class="learning-number">03</span>
+                        <h3>Understanding Pearson's r</h3>
+                        <p>
+                            Pearson's correlation coefficient describes the
+                            strength and direction of the linear relationship
+                            between two variables. The sign indicates direction,
+                            while the magnitude is interpreted using the
+                            rule-of-thumb in Correlation Coefficient interpretation.
+                        </p>
+                    </article>
+                </section>
+
+                <footer class="page-footer">
+                    <span>© <span id="currentYear"></span> StatWise</span>
+                    <span>Learn statistics through data and discovery.</span>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>\n</body>
+</html>

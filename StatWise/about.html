@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About StatWise | StatWise</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/analysis.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+        <a href="index.html" class="brand">
+            <div class="brand-logo">Σ</div>
+            <div>
+                <h2>Stat<span>Wise</span></h2>
+                <small>STATISTICAL ANALYSIS</small>
+            </div>
+        </a>
+
+        <p class="nav-heading">WORKSPACE</p>
+
+        <nav class="navigation">
+            <a href="index.html" class="nav-link">
+                <span>⌂</span> Dashboard
+            </a>
+
+            <a href="regression.html" class="nav-link">
+                <span>⌁</span> Linear Regression
+            </a>
+
+            <a href="hypothesis.html" class="nav-link">
+                <span>∿</span> Hypothesis Testing
+            </a>
+        </nav>
+
+        <p class="nav-heading learn-heading">LEARN</p>
+
+        <nav class="navigation">
+            <a href="guide.html" class="nav-link">
+                <span>▤</span> Statistics Guide
+            </a>
+
+            <a href="about.html" class="nav-link active">
+                <span>ⓘ</span> About StatWise
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <button id="menuToggle" class="menu-toggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">☰</button>
+
+            <div class="breadcrumb">
+                Learn <span>/</span> <strong>About StatWise</strong>
+            </div>
+
+            <div class="topbar-right">ADVSTAT Learning</div>
+        </header>
+
+        <div class="page-content">
+
+            <!-- PAGE INTRO -->
+            <section class="welcome-section">
+                <div>
+                    <p class="eyebrow">STATWISE / PROJECT OVERVIEW</p>
+
+                    <h1>About StatWise</h1>
+
+                    <p class="welcome-description">
+                        A statistical analysis website developed as a
+                        final requirement for Advanced Statistics.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ABOUT THE PROJECT -->
+            <article class="info-panel">
+
+                <p class="eyebrow">ABOUT THE PROJECT</p>
+
+                <h3 style="margin-bottom: 12px;">
+                    Making statistical analysis easier and more accessible
+                </h3>
+
+                <p style="color: var(--muted); line-height: 1.9;">
+                    StatWise is a web-based statistical analysis project
+                    developed by Paul John F. Lirio, a BSIT-3B student,
+                    as a final requirement for the subject Advanced
+                    Statistics (ADVSTAT). The website aims to provide
+                    a simple and interactive way to perform statistical
+                    calculations using a given sample of data.
+                </p>
+
+                <p style="color: var(--muted); line-height: 1.9; margin-top: 14px;">
+                    Through its built-in tools, users can calculate
+                    simple linear regression and perform hypothesis
+                    testing. StatWise is designed to help students
+                    understand statistical results, practice applying
+                    statistical methods, and support their learning
+                    through an easy-to-use interface.
+                </p>
+
+                <!-- PROJECT FEATURES -->
+                <div class="bottom-grid" style="margin-top: 22px;">
+
+                    <div>
+                        <h4>Simple Linear Regression</h4>
+
+                        <p style="color: var(--muted); line-height: 1.8;">
+                            Allows users to input sample data and
+                            calculate regression results to examine
+                            the relationship between two variables
+                            and make predictions.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4>Hypothesis Testing</h4>
+
+                        <p style="color: var(--muted); line-height: 1.8;">
+                            Allows users to perform hypothesis tests
+                            using sample data, calculate test results,
+                            and determine whether to reject or fail
+                            to reject the null hypothesis.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- PROJECT DETAILS -->
+                <div style="margin-top: 24px;">
+
+                    <p class="eyebrow">PROJECT DETAILS</p>
+
+                    <div class="bottom-grid" style="margin-top: 14px;">
+
+                        <div>
+                            <h4>Developed by</h4>
+                            <p style="color: var(--muted); line-height: 1.8;">
+                                Paul John F. Lirio
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4>Program and Section</h4>
+                            <p style="color: var(--muted); line-height: 1.8;">
+                                BSIT-3B
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4>Course</h4>
+                            <p style="color: var(--muted); line-height: 1.8;">
+                                Advanced Statistics (ADVSTAT)
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4>Project Type</h4>
+                            <p style="color: var(--muted); line-height: 1.8;">
+                                Academic Final Requirement
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </article>
+
+            <footer class="page-footer">
+                <span>© <span id="year"></span> StatWise</span>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+</body>
+</html>

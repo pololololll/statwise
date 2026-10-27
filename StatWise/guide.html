@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Statistics Guide | StatWise</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/analysis.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- JavaScript -->
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+
+            <!-- Brand -->
+            <a href="index.html" class="brand">
+                <div class="brand-logo">Σ</div>
+
+                <div>
+                    <h2>Stat<span>Wise</span></h2>
+                    <small>STATISTICAL ANALYSIS</small>
+                </div>
+            </a>
+
+            <!-- Workspace Navigation -->
+            <p class="nav-heading">WORKSPACE</p>
+
+            <nav class="navigation">
+                <a href="index.html" class="nav-link">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+                <a href="regression.html" class="nav-link">
+                    <span>⌁</span>
+                    Linear Regression
+                </a>
+
+                <a href="hypothesis.html" class="nav-link">
+                    <span>∿</span>
+                    Hypothesis Testing
+                </a>
+            </nav>
+
+            <!-- Learning Navigation -->
+            <p class="nav-heading learn-heading">LEARN</p>
+
+            <nav class="navigation">
+                <a href="guide.html" class="nav-link active">
+                    <span>▤</span>
+                    Statistics Guide
+                </a>
+
+                <a href="about.html" class="nav-link">
+                    <span>ⓘ</span>
+                    About StatWise
+                </a>
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Topbar -->
+            <header class="topbar">
+
+                <button
+                    id="menuToggle"
+                    class="menu-toggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                >
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    Learn
+                    <span>/</span>
+                    <strong>Statistics Guide</strong>
+                </div>
+
+                <div class="topbar-right">
+                    ADVSTAT Learning
+                </div>
+
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <div>
+                        <p class="eyebrow">
+                            STATWISE / ADVANCED STATISTICS
+                        </p>
+
+                        <h1>Statistics Guide</h1>
+
+                        <p class="welcome-description">
+                            Study material aligned with the topics
+                            covered in Modules 7 and 9.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Learning Modules -->
+                <section class="bottom-grid">
+
+                    <!-- Module 7 -->
+                    <article class="info-panel">
+
+                        <div class="panel-heading">
+                            <div>
+                                <p class="eyebrow">MODULE 7</p>
+
+                                <h3>
+                                    Simple Linear Regression and Correlation
+                                </h3>
+                            </div>
+                        </div>
+
+                        <p style="color: var(--muted); line-height: 1.8;">
+                            Regression analysis estimates how a response
+                            variable depends on a predictor. The regression
+                            line can be used to estimate possible values of
+                            Y for a given X.
+                        </p>
+
+                        <h4 style="margin: 18px 0 8px;">
+                            Regression line
+                        </h4>
+
+                        <p
+                            style="
+                                font-size: 22px;
+                                font-weight: 800;
+                                color: var(--blue);
+                            "
+                        >
+                            y′ = A + Bx
+                        </p>
+
+                        <p style="color: var(--muted); line-height: 1.8;">
+                            A is the y-intercept and B is the slope.
+                            Module 7 introduces the least-squares approach.
+                        </p>
+
+                        <h4 style="margin: 18px 0 8px;">
+                            Correlation
+                        </h4>
+
+                        <p style="color: var(--muted); line-height: 1.8;">
+                            Pearson's correlation coefficient r describes
+                            the strength and direction of a linear
+                            relationship between two variables.
+                        </p>
+
+                    </article>
+
+                    <!-- Module 9 -->
+                    <article class="info-panel">
+
+                        <div class="panel-heading">
+                            <div>
+                                <p class="eyebrow">MODULE 9</p>
+                                <h3>Hypothesis Testing</h3>
+                            </div>
+                        </div>
+
+                        <ul
+                            style="
+                                padding-left: 20px;
+                                color: var(--muted);
+                                line-height: 2;
+                            "
+                        >
+                            <li>
+                                Null hypothesis (H₀) and alternative
+                                hypothesis (H₁)
+                            </li>
+
+                            <li>Level of significance (α)</li>
+
+                            <li>Confidence level (1 − α)</li>
+
+                            <li>General procedure of hypothesis testing</li>
+
+                            <li>One-sample and two-sample Z-tests</li>
+
+                            <li>One-sample and two-sample t-tests</li>
+                        </ul>
+
+                    </article>
+
+                </section>
+
+                <!-- Correlation Interpretation Table -->
+                <article
+                    class="info-panel"
+                    style="margin-top: 20px;"
+                >
+
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">MODULE 7 REFERENCE</p>
+
+                            <h3>
+                                Rule of Thumb for Interpreting the Size of r
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Absolute value of r</th>
+                                    <th>Interpretation from the slide</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>0.90 to 1.00</td>
+                                    <td>
+                                        Very high positive or negative correlation
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>0.70 to 0.90</td>
+                                    <td>
+                                        High positive or negative correlation
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>0.50 to 0.70</td>
+                                    <td>
+                                        Moderate positive or negative correlation
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>0.30 to 0.50</td>
+                                    <td>
+                                        Low positive or negative correlation
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>0.00 to 0.30</td>
+                                    <td>
+                                        Negligible correlation
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <p
+                        style="
+                            margin-top: 12px;
+                            color: var(--muted);
+                            font-size: 12px;
+                        "
+                    >
+                        For negative r values, interpret the magnitude
+                        using the corresponding negative ranges.
+                    </p>
+
+                </article>
+
+                <!-- Footer -->
+                <footer class="page-footer">
+                    <span>
+                        © <span id="year"></span> StatWise
+                    </span>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+</body>
+</html>

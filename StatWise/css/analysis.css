@@ -1,0 +1,235 @@
+
+/* ========================================
+   STATWISE - SHARED ANALYSIS TYPOGRAPHY
+   Used by Linear Regression and Hypothesis Testing
+   ======================================== */
+
+/* Consistent font across both analysis pages */
+.main-content {
+    font-family: 'DM Sans', Arial, sans-serif;
+}
+
+.main-content h1,
+.main-content .page-intro h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: #192B43;
+}
+
+.main-content h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.main-content h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.main-content h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+/* Page descriptions */
+.main-content .welcome-description,
+.main-content .page-intro > div:first-child > p,
+.main-content .page-description {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #78869A;
+}
+
+/* Small section labels */
+.main-content .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    line-height: 1.6;
+}
+
+/* Consistent card descriptions */
+.main-content .concept-card p,
+.main-content .info-panel > p {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Consistent navigation typography */
+.sidebar .nav-link {
+    font-family: 'DM Sans', Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    .main-content h1,
+    .main-content .page-intro h1 {
+        font-size: 32px;
+        letter-spacing: -0.6px;
+    }
+
+    .main-content h2 {
+        font-size: 22px;
+    }
+
+    .main-content h3 {
+        font-size: 18px;
+    }
+
+    .main-content .welcome-description,
+    .main-content .page-intro > div:first-child > p,
+    .main-content .page-description {
+        font-size: 14px;
+    }
+}
+
+
+/* ========================================
+   STATWISE - MATCH INTRO BADGE SIZES
+   ======================================== */
+
+/* Shared badge sizing */
+.regression-page .heading-badge,
+.hypothesis-page .intro-badge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    box-sizing: border-box;
+    width: 270px;
+    min-width: 270px;
+    max-width: 270px;
+    height: 90px;
+
+    flex: 0 0 270px;
+
+    padding: 16px;
+
+    border: 1px solid #e2e9f5;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+/* Badge icons */
+.regression-page .heading-badge > span,
+.hypothesis-page .intro-icon {
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+
+    flex-shrink: 0;
+
+    color: #ffffff;
+    border-radius: 13px;
+    background: #315ce2;
+
+    font-size: 25px;
+}
+
+/* Badge title */
+.regression-page .heading-badge strong,
+.hypothesis-page .intro-badge strong {
+    display: block;
+    margin: 0 0 6px;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* Badge description */
+.regression-page .heading-badge small,
+.hypothesis-page .intro-badge div span {
+    display: block;
+
+    color: #8490a4;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Responsive badge */
+@media (max-width: 800px) {
+    .regression-page .heading-badge,
+    .hypothesis-page .intro-badge {
+        width: 270px;
+        min-width: 270px;
+        max-width: 100%;
+        flex-basis: 270px;
+    }
+}
+
+/* SHARED INTRO BADGE */
+.main-content .heading-badge,
+.main-content .intro-badge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    width: 272px;
+    min-width: 272px;
+    height: 90px;
+    box-sizing: border-box;
+
+    padding: 16px 20px;
+    border: 1px solid #e2e9f5;
+    border-radius: 18px;
+    background: #ffffff;
+}
+
+/* SHARED BADGE ICON */
+.main-content .heading-badge > span,
+.main-content .intro-badge .intro-icon {
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    flex-shrink: 0;
+
+    color: #ffffff;
+    background: #315ce2;
+    border-radius: 15px;
+
+    font-size: 25px;
+    line-height: 1;
+}
+
+/* SHARED BADGE TEXT */
+.main-content .heading-badge strong,
+.main-content .intro-badge strong {
+    display: block;
+    margin: 0 0 6px;
+
+    color: #192b43;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.main-content .heading-badge small,
+.main-content .intro-badge div span {
+    display: block;
+
+    color: #78869a;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: nowrap;
+}

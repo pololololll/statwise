@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatWise | Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <a href="index.html" class="brand">
+            <div class="brand-logo">Σ</div>
+            <div>
+                <h2>Stat<span>Wise</span></h2>
+                <small>STATISTICAL ANALYSIS</small>
+            </div>
+        </a>
+
+        <p class="nav-heading">WORKSPACE</p>
+
+        <nav class="navigation">
+            <a href="index.html" class="nav-link active">
+                <span>⌂</span> Dashboard
+            </a>
+            <a href="regression.html" class="nav-link">
+                <span>⌁</span> Linear Regression
+            </a>
+            <a href="hypothesis.html" class="nav-link">
+                <span>∿</span> Hypothesis Testing
+            </a>
+        </nav>
+
+        <p class="nav-heading learn-heading">LEARN</p>
+
+        <nav class="navigation">
+            <a href="guide.html" class="nav-link">
+                <span>▤</span> Statistics Guide
+            </a>
+            <a href="about.html" class="nav-link">
+                <span>ⓘ</span> About StatWise
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <button id="menuToggle" class="menu-toggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">☰</button>
+
+            <div class="breadcrumb">
+                Workspace <span>/</span> <strong>Dashboard</strong>
+            </div>
+
+            <div class="topbar-right">
+                <span id="todayLabel"></span>
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <!-- WELCOME -->
+            <section class="welcome-section">
+                <div>
+                    <p class="eyebrow">YOUR STATISTICS WORKSPACE</p>
+                    <h1>Welcome to <span>StatWise.</span></h1>
+                    <p class="welcome-description">
+                        Turn your data into meaningful insights, one analysis at a time.
+                    </p>
+                </div>
+            </section>
+
+            <!-- HERO BANNER -->
+            <section class="hero-banner">
+                <div class="hero-content">
+                    <span class="hero-label">✦ YOUR DATA, MADE CLEAR</span>
+
+                    <h2>Make statistics<br>work for you.</h2>
+
+                    <p>
+                        Calculate, visualize, and understand statistical results
+                        with tools designed for students.
+                    </p>
+
+                    <a href="#analysis-tools" class="hero-button">
+                        Explore your tools <span>→</span>
+                    </a>
+                </div>
+
+                <div class="hero-graphic">
+                    <div class="graphic-card">
+                        <div class="graphic-header">
+                            <span></span><span></span><span></span>
+                            <small>DATA OVERVIEW</small>
+                        </div>
+
+                        <div class="graphic-title">
+                            Sample visualization
+                            <span>↗</span>
+                        </div>
+
+                        <svg viewBox="0 0 320 150"
+                             class="trend-chart"
+                             role="img"
+                             aria-label="Illustration of an upward data trend">
+
+                            <defs>
+                                <linearGradient id="areaFill" x1="0" y1="0"
+                                                x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#76ACFF"
+                                          stop-opacity="0.4"/>
+                                    <stop offset="100%" stop-color="#76ACFF"
+                                          stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+
+                            <path d="M10 125 L10 105 L50 88 L85 98
+                                     L120 65 L155 75 L190 45
+                                     L225 54 L265 25 L310 12
+                                     L310 125 Z"
+                                  fill="url(#areaFill)"/>
+
+                            <path d="M10 105 L50 88 L85 98 L120 65
+                                     L155 75 L190 45 L225 54
+                                     L265 25 L310 12"
+                                  fill="none" stroke="#76ACFF"
+                                  stroke-width="3"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+
+                            <g fill="#FFFFFF" stroke="#76ACFF" stroke-width="2">
+                                <circle cx="50" cy="88" r="4"/>
+                                <circle cx="120" cy="65" r="4"/>
+                                <circle cx="190" cy="45" r="4"/>
+                                <circle cx="265" cy="25" r="4"/>
+                            </g>
+                        </svg>
+
+                        <div class="chart-legend">
+                            <span><i></i> Data trend</span>
+                            <span>Illustration only</span>
+                        </div>
+                    </div>
+
+                    <div class="floating-note">
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Understand the result</strong>
+                            <small>Not just the numbers</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANALYSIS TOOLS -->
+            <section class="tools-section" id="analysis-tools">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">ANALYSIS TOOLS</p>
+                        <h2>What would you like to analyze?</h2>
+                        <p>Choose a tool to get started with your data.</p>
+                    </div>
+                    <span class="tool-count">02 TOOLS</span>
+                </div>
+
+                <div class="tool-grid">
+
+                    <!-- REGRESSION CARD -->
+                    <article class="tool-card">
+                        <div class="tool-card-top">
+                            <div class="tool-icon regression-icon">↗</div>
+                            <span class="tool-tag">RELATIONSHIPS</span>
+                        </div>
+
+                        <h3>Simple Linear Regression</h3>
+
+                        <p>
+                            Explore how two variables relate. Calculate the
+                            regression equation and correlation coefficient,
+                            then view your data in a scatter plot.
+                        </p>
+
+                        <div class="feature-list">
+                            <span>↗ Regression equation</span>
+                            <span>◉ Correlation coefficient</span>
+                            <span>▥ Scatter plot</span>
+                        </div>
+
+                        <a href="regression.html" class="tool-link">
+                            Open regression tool <span>→</span>
+                        </a>
+                    </article>
+
+                    <!-- HYPOTHESIS CARD -->
+                    <article class="tool-card">
+                        <div class="tool-card-top">
+                            <div class="tool-icon hypothesis-icon">∿</div>
+                            <span class="tool-tag">TEST A CLAIM</span>
+                        </div>
+
+                        <h3>Hypothesis Testing</h3>
+
+                        <p>
+                            Evaluate a statistical claim using a Z-test.
+                            Select a significance level and understand
+                            the critical value and decision.
+                        </p>
+
+                        <div class="feature-list">
+                            <span>α Significance level</span>
+                            <span>± Z critical values</span>
+                            <span>⌁ Normal curve</span>
+                        </div>
+
+                        <a href="hypothesis.html" class="tool-link">
+                            Open hypothesis tool <span>→</span>
+                        </a>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- BOTTOM PANELS -->
+            <section class="bottom-grid">
+
+                <article class="info-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">GETTING STARTED</p>
+                            <h3>Your quick-start guide</h3>
+                        </div>
+                        <span class="panel-icon">✦</span>
+                    </div>
+
+                    <div class="steps-list">
+                        <div class="step">
+                            <span class="step-number">01</span>
+                            <div>
+                                <h4>Prepare your data</h4>
+                                <p>
+                                    Organize your observations and check for
+                                    missing or invalid values.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">02</span>
+                            <div>
+                                <h4>Choose an analysis</h4>
+                                <p>
+                                    Use regression to study relationships or
+                                    hypothesis testing to evaluate a claim.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">03</span>
+                            <div>
+                                <h4>Interpret the results</h4>
+                                <p>
+                                    Review the calculations, graph, and
+                                    plain-language explanation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="guide.html" class="subtle-link">
+                        Read the statistics guide →
+                    </a>
+                </article>
+
+                <article class="info-panel concept-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">STATISTICS CONCEPT</p>
+                            <h3>Did you know?</h3>
+                        </div>
+                        <span class="panel-icon purple-icon">i</span>
+                    </div>
+
+                    <div class="concept-content">
+                        <div class="concept-symbol">r</div>
+                        <div>
+                            <h4>Correlation is not causation.</h4>
+                            <p>
+                                Two variables can move together without one
+                                necessarily causing the other. Always consider
+                                context before drawing conclusions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="concept-footer">
+                        <span></span> A useful reminder for every analysis
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="page-footer">
+                <span>© <span id="year"></span> StatWise</span>
+                <span>Understand Data. Make Smarter Decisions.</span>
+                <a href="about.html">About this project</a>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+</body>
+</html>

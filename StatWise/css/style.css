@@ -331,7 +331,7 @@ p { color: var(--text-soft); }
     display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
     margin-bottom: 30px;
 }
-.page-header p { max-width: 62ch; margin-top: 10px; font-size: 1.1rem; color: var(--muted); }
+.page-header p { max-width: none; margin-top: 10px; font-size: 1.1rem; color: var(--muted); }
 
 .page-footer {
     margin-top: 40px; padding: 22px 0 6px;

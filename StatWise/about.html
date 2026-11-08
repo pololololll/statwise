@@ -4,189 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About StatWise | StatWise</title>
+    <link rel="icon" type="image/png" href="assets/logo-mark-light.png">
 
+    <script src="js/core.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/analysis.css">
-    <link rel="stylesheet" href="css/responsive.css">
-
+    <link rel="stylesheet" href="css/pages.css">
     <script src="js/app.js" defer></script>
 </head>
+<body data-nav="about" data-section="Learn" data-title="About StatWise">
 
-<body>
 <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
 
-    <aside class="sidebar" id="sidebar">
-        <a href="index.html" class="brand">
-            <div class="brand-logo">Σ</div>
-            <div>
-                <h2>Stat<span>Wise</span></h2>
-                <small>STATISTICAL ANALYSIS</small>
-            </div>
-        </a>
+    <div class="main-content">
+        <header class="topbar" id="topbar"></header>
 
-        <p class="nav-heading">WORKSPACE</p>
+        <main class="page-content">
 
-        <nav class="navigation">
-            <a href="index.html" class="nav-link">
-                <span>⌂</span> Dashboard
-            </a>
-
-            <a href="regression.html" class="nav-link">
-                <span>⌁</span> Linear Regression
-            </a>
-
-            <a href="hypothesis.html" class="nav-link">
-                <span>∿</span> Hypothesis Testing
-            </a>
-        </nav>
-
-        <p class="nav-heading learn-heading">LEARN</p>
-
-        <nav class="navigation">
-            <a href="guide.html" class="nav-link">
-                <span>▤</span> Statistics Guide
-            </a>
-
-            <a href="about.html" class="nav-link active">
-                <span>ⓘ</span> About StatWise
-            </a>
-        </nav>
-    </aside>
-
-    <main class="main-content">
-
-        <header class="topbar">
-            <button id="menuToggle" class="menu-toggle"
-                    aria-label="Toggle navigation"
-                    aria-expanded="false">☰</button>
-
-            <div class="breadcrumb">
-                Learn <span>/</span> <strong>About StatWise</strong>
-            </div>
-
-            <div class="topbar-right">ADVSTAT Learning</div>
-        </header>
-
-        <div class="page-content">
-
-            <!-- PAGE INTRO -->
-            <section class="welcome-section">
+            <section class="page-header">
                 <div>
-                    <p class="eyebrow">STATWISE / PROJECT OVERVIEW</p>
-
-                    <h1>About StatWise</h1>
-
-                    <p class="welcome-description">
-                        A statistical analysis website developed as a
-                        final requirement for Advanced Statistics.
-                    </p>
+                    <span class="eyebrow">StatWise / Project overview</span>
+                    <h1>About <em>StatWise</em></h1>
+                    <p>A statistical analysis website built as a final requirement for Advanced Statistics.</p>
                 </div>
             </section>
 
-            <!-- ABOUT THE PROJECT -->
-            <article class="info-panel">
-
-                <p class="eyebrow">ABOUT THE PROJECT</p>
-
-                <h3 style="margin-bottom: 12px;">
-                    Making statistical analysis easier and more accessible
-                </h3>
-
-                <p style="color: var(--muted); line-height: 1.9;">
-                    StatWise is a web-based statistical analysis project
-                    developed by Paul John F. Lirio, a BSIT-3B student,
-                    as a final requirement for the subject Advanced
-                    Statistics (ADVSTAT). The website aims to provide
-                    a simple and interactive way to perform statistical
-                    calculations using a given sample of data.
-                </p>
-
-                <p style="color: var(--muted); line-height: 1.9; margin-top: 14px;">
-                    Through its built-in tools, users can calculate
-                    simple linear regression and perform hypothesis
-                    testing. StatWise is designed to help students
-                    understand statistical results, practice applying
-                    statistical methods, and support their learning
-                    through an easy-to-use interface.
-                </p>
-
-                <!-- PROJECT FEATURES -->
-                <div class="bottom-grid" style="margin-top: 22px;">
-
-                    <div>
-                        <h4>Simple Linear Regression</h4>
-
-                        <p style="color: var(--muted); line-height: 1.8;">
-                            Allows users to input sample data and
-                            calculate regression results to examine
-                            the relationship between two variables
-                            and make predictions.
-                        </p>
+            <!-- DEVELOPER -->
+            <section class="dev-card" aria-labelledby="devName">
+                <div class="dev-id">
+                    <div class="avatar lg">
+                        <img src="assets/dev.jpeg" alt="Photo of Paul John F. Lirio">
                     </div>
-
-                    <div>
-                        <h4>Hypothesis Testing</h4>
-
-                        <p style="color: var(--muted); line-height: 1.8;">
-                            Allows users to perform hypothesis tests
-                            using sample data, calculate test results,
-                            and determine whether to reject or fail
-                            to reject the null hypothesis.
-                        </p>
-                    </div>
-
+                    <h2 id="devName">Paul John F. Lirio</h2>
+                    <p class="dev-role">Developer &amp; designer of StatWise</p>
                 </div>
 
-                <!-- PROJECT DETAILS -->
-                <div style="margin-top: 24px;">
+                <div class="dev-body">
+                    <span class="eyebrow">Meet the developer</span>
+                    <p>
+                        Paul is a BSIT-3B student who created StatWise as his final project for Advanced
+                        Statistics (ADVSTAT). He turned the lessons from Module 7 (simple linear regression
+                        and correlation) and Module 9 (hypothesis testing) into an interactive tool that
+                        helps students practice the methods and understand what the results mean.
+                    </p>
 
-                    <p class="eyebrow">PROJECT DETAILS</p>
-
-                    <div class="bottom-grid" style="margin-top: 14px;">
-
-                        <div>
-                            <h4>Developed by</h4>
-                            <p style="color: var(--muted); line-height: 1.8;">
-                                Paul John F. Lirio
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4>Program and Section</h4>
-                            <p style="color: var(--muted); line-height: 1.8;">
-                                BSIT-3B
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4>Course</h4>
-                            <p style="color: var(--muted); line-height: 1.8;">
-                                Advanced Statistics (ADVSTAT)
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4>Project Type</h4>
-                            <p style="color: var(--muted); line-height: 1.8;">
-                                Academic Final Requirement
-                            </p>
-                        </div>
-
-                    </div>
+                    <dl class="dev-facts">
+                        <div><dt>Program</dt><dd>BSIT-3B</dd></div>
+                        <div><dt>Course</dt><dd>Advanced Statistics (ADVSTAT)</dd></div>
+                        <div><dt>Project</dt><dd>Academic final requirement</dd></div>
+                    </dl>
                 </div>
+            </section>
 
-            </article>
+            <!-- ABOUT STATWISE -->
+            <section class="card about-text">
+                <img class="about-logo theme-img" src="assets/logo-full-light.png"
+                     data-light="assets/logo-full-light.png" data-dark="assets/logo-full-dark.png"
+                     alt="StatWise — Analyze, Understand, Decide">
+
+                <span class="eyebrow">About the project</span>
+                <h2 style="font-size:1.8rem;margin-bottom:14px">Making statistical analysis easier and more accessible</h2>
+
+                <p>
+                    StatWise is a web-based statistical analysis tool that lets you enter a sample of data
+                    and get clear results with a plain-language explanation. Its name says what it is for:
+                    <strong>Analyze</strong> your data, <strong>Understand</strong> what the numbers mean,
+                    and <strong>Decide</strong> what to conclude.
+                </p>
+                <p>
+                    Every analysis you run is saved to your account's history in this browser, so you can
+                    review or reopen it later. The Module 7 and Module 9 pages hold the course PDFs for
+                    reference while you work.
+                </p>
+            </section>
+
+            <!-- SCOPE + LIMITATIONS -->
+            <section class="scope-grid">
+                <article class="card">
+                    <div class="card-head">
+                        <div>
+                            <span class="eyebrow">Scope</span>
+                            <h2 style="font-size:1.5rem">What StatWise can do</h2>
+                        </div>
+                    </div>
+
+                    <ul class="check-list">
+                        <li><div><strong>Simple linear regression</strong> — regression equation (y′ = A + Bx),
+                            slope, intercept, Pearson's r, R², a scatter plot with the regression line, and
+                            prediction of Y for a given X.</div></li>
+                        <li><div><strong>Strength of correlation</strong> — interpreted with the Module 7 rule of
+                            thumb (very high, high, moderate, low, negligible).</div></li>
+                        <li><div><strong>Hypothesis testing</strong> — one-sample and two-sample Z-tests and
+                            t-tests, with α of 0.10, 0.05 or 0.01 and two-tailed, right-tailed or left-tailed
+                            alternatives.</div></li>
+                        <li><div><strong>Critical-value method</strong> — test statistic, critical value,
+                            rejection region, degrees of freedom, a decision, and a bell-curve diagram.</div></li>
+                        <li><div><strong>Learning support</strong> — sample data for both tools, analysis
+                            history, and the Module 7 and Module 9 PDFs.</div></li>
+                        <li><div><strong>Light and dark mode</strong> — your choice is remembered.</div></li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <div class="card-head">
+                        <div>
+                            <span class="eyebrow">Limitations</span>
+                            <h2 style="font-size:1.5rem">What to keep in mind</h2>
+                        </div>
+                    </div>
+
+                    <ul class="check-list limits">
+                        <li><div><strong>Educational use.</strong> StatWise is a student project for learning and
+                            practice. Double-check important results before using them in graded or
+                            professional work.</div></li>
+                        <li><div><strong>Regression is simple only.</strong> It handles one predictor (X) and one
+                            response (Y), and assumes a straight-line relationship. It does not offer multiple
+                            regression, significance tests or confidence intervals for the slope, or residual
+                            diagnostics.</div></li>
+                        <li><div><strong>Correlation is not causation.</strong> Predictions outside the range of
+                            your X values (extrapolation) can be unreliable.</div></li>
+                        <li><div><strong>Hypothesis tests use summary statistics.</strong> You enter means,
+                            standard deviations and sample sizes — not raw data. Results are by the
+                            critical-value method; p-values are not computed.</div></li>
+                        <li><div><strong>Two-sample t-test degrees of freedom</strong> use df = min(n₁ − 1, n₂ − 1),
+                            the smaller sample's df, as taught in the module. Other methods (such as Welch's
+                            formula) would give slightly different critical values.</div></li>
+                        <li><div><strong>Limited options.</strong> Only Z- and t-tests, only three significance
+                            levels, and no paired or proportion tests, ANOVA or chi-square.</div></li>
+                        <li><div><strong>Data stays in your browser.</strong> Accounts and history are stored only
+                            on this device. There is no server, so nothing syncs between devices, the sign-in is
+                            not meant to protect sensitive data, and clearing browser data erases it.</div></li>
+                    </ul>
+                </article>
+            </section>
 
             <footer class="page-footer">
-                <span>© <span id="year"></span> StatWise</span>
+                <span>&copy; <span data-year></span> StatWise</span>
+                <span>Developed by Paul John F. Lirio · BSIT-3B</span>
             </footer>
-
-        </div>
-    </main>
+        </main>
+    </div>
 </div>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
 </body>
 </html>

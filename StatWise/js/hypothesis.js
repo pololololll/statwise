@@ -7,6 +7,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const $ = id => document.getElementById(id);
+    const SW = window.StatWise;
 
     const form = $("hypothesisForm");
     const testType = $("testType");
@@ -98,6 +99,17 @@ document.addEventListener("DOMContentLoaded", () => {
         $("sd2Label").textContent = tTest
             ? "Sample Standard Deviation (s₂)"
             : "Population Standard Deviation (σ₂)";
+
+        const hint = $("dfHint");
+
+        if (tTest) {
+            hint.hidden = false;
+            hint.innerHTML = twoSample
+                ? "<strong>Degrees of freedom:</strong> df = min(n₁ − 1, n₂ − 1) — the smaller of the two sample df is used."
+                : "<strong>Degrees of freedom:</strong> df = n − 1.";
+        } else {
+            hint.hidden = true;
+        }
 
         currentResult = null;
         resultsCard.hidden = true;
@@ -297,15 +309,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return (low + high) / 2;
     }
 
-    function calculateDegreesOfFreedom(n1, s1, n2, s2) {
-        const v1 = s1 * s1 / n1;
-        const v2 = s2 * s2 / n2;
-
-        return (v1 + v2) ** 2 /
-            (
-                (v1 ** 2) / (n1 - 1) +
-                (v2 ** 2) / (n2 - 1)
-            );
+    // Degrees of freedom (Module 9 rules)
+    //   one-sample t-test: df = n - 1
+    //   two-sample t-test: df = min(n1 - 1, n2 - 1)  (the smaller sample's df)
+    function calculateDegreesOfFreedom(n1, n2) {
+        if (n2 === undefined) return n1 - 1;
+        return Math.min(n1 - 1, n2 - 1);
     }
 
     /* -----------------------------------------
@@ -343,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 (sd1 / Math.sqrt(n1));
 
             if (tTest) {
-                df = n1 - 1;
+                df = calculateDegreesOfFreedom(n1);
             }
         } else {
             const mean2 = readNumber(fields.mean2, "the Sample 2 mean");
@@ -365,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
             statistic = (mean1 - mean2 - nullValue) / standardError;
 
             if (tTest) {
-                df = calculateDegreesOfFreedom(n1, sd1, n2, sd2);
+                df = calculateDegreesOfFreedom(n1, n2);
             }
         }
 
@@ -380,7 +389,8 @@ document.addEventListener("DOMContentLoaded", () => {
             twoSample,
             alpha: Number($("alpha").value),
             tail: $("tail").value,
-            type: testType.value
+            type: testType.value,
+            inputs: collectInputs(twoSample)
         };
     }
 
@@ -453,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         title.textContent = reject
             ? "Reject the Null Hypothesis"
-            : "Accept the Null Hypothesis";
+            : "Fail to reject the Null Hypothesis";
 
         explanation.textContent = reject
             ? `The test statistic (${statistic}) falls in the rejection region. The critical value is ${critical}, with α = ${result.alpha}. There is sufficient evidence against the null hypothesis under the selected test.`
@@ -535,119 +545,164 @@ document.addEventListener("DOMContentLoaded", () => {
                 ` L ${px(visible[visible.length - 1].x)} ${baseline} Z`;
         }
 
+        const fillPath = (from, to) =>
+            `<path class="reject-fill" d="${areaPath(from, to)}"/>`;
+
         let shadedRegions = "";
 
         if (result.tail === "two") {
-            shadedRegions =
-                `<path d="${areaPath(-range, -critical)}" fill="#f1a3a8" opacity="0.85"/>` +
-                `<path d="${areaPath(critical, range)}" fill="#f1a3a8" opacity="0.85"/>`;
+            shadedRegions = fillPath(-range, -critical) + fillPath(critical, range);
         } else if (result.tail === "right") {
-            shadedRegions =
-                `<path d="${areaPath(critical, range)}" fill="#f1a3a8" opacity="0.85"/>`;
+            shadedRegions = fillPath(critical, range);
         } else {
-            shadedRegions =
-                `<path d="${areaPath(-range, -critical)}" fill="#f1a3a8" opacity="0.85"/>`;
+            shadedRegions = fillPath(-range, -critical);
         }
+
+        const criticalMarker = (value, label) => `
+            <line class="reject-line" x1="${px(value)}" y1="${baseline}"
+                  x2="${px(value)}" y2="${py(distributionDensity(value, result))}"/>
+            <text class="reject-label" x="${px(value)}" y="${baseline - 12}"
+                  text-anchor="middle">${label}</text>`;
 
         let criticalLines = "";
 
         if (result.tail === "two") {
-            criticalLines = `
-                <line x1="${px(-critical)}" y1="${baseline}"
-                      x2="${px(-critical)}" y2="${py(distributionDensity(-critical, result))}"
-                      stroke="#c84e5d" stroke-width="2" stroke-dasharray="5 4"/>
-                <line x1="${px(critical)}" y1="${baseline}"
-                      x2="${px(critical)}" y2="${py(distributionDensity(critical, result))}"
-                      stroke="#c84e5d" stroke-width="2" stroke-dasharray="5 4"/>
-                <text x="${px(-critical)}" y="${baseline - 12}"
-                      text-anchor="middle" font-size="11" fill="#b54753">
-                    −${critical.toFixed(2)}
-                </text>
-                <text x="${px(critical)}" y="${baseline - 12}"
-                      text-anchor="middle" font-size="11" fill="#b54753">
-                    +${critical.toFixed(2)}
-                </text>
-            `;
+            criticalLines =
+                criticalMarker(-critical, `−${critical.toFixed(2)}`) +
+                criticalMarker(critical, `+${critical.toFixed(2)}`);
         } else {
-            const signedCritical = result.tail === "right"
-                ? critical
-                : -critical;
-
-            criticalLines = `
-                <line x1="${px(signedCritical)}" y1="${baseline}"
-                      x2="${px(signedCritical)}"
-                      y2="${py(distributionDensity(signedCritical, result))}"
-                      stroke="#c84e5d" stroke-width="2" stroke-dasharray="5 4"/>
-                <text x="${px(signedCritical)}" y="${baseline - 12}"
-                      text-anchor="middle" font-size="11" fill="#b54753">
-                    ${signedCritical.toFixed(2)}
-                </text>
-            `;
+            const signed = result.tail === "right" ? critical : -critical;
+            criticalLines = criticalMarker(signed, signed.toFixed(2));
         }
 
         const ticks = [-4, -3, -2, -1, 0, 1, 2, 3, 4]
             .map(value => `
-                <line x1="${px(value)}" y1="${baseline}"
-                      x2="${px(value)}" y2="${baseline + 5}"
-                      stroke="#94a3b8"/>
-                <text x="${px(value)}" y="${baseline + 22}"
-                      text-anchor="middle" font-size="11" fill="#64748b">
-                    ${value}
-                </text>
+                <line class="axis" x1="${px(value)}" y1="${baseline}"
+                      x2="${px(value)}" y2="${baseline + 5}"/>
+                <text x="${px(value)}" y="${baseline + 24}"
+                      text-anchor="middle">${value}</text>
             `).join("");
 
-        const visibleStatistic = Math.max(
-            -range,
-            Math.min(range, statistic)
-        );
+        const visibleStatistic = Math.max(-range, Math.min(range, statistic));
 
         const statX = px(visibleStatistic);
         const statY = py(distributionDensity(visibleStatistic, result));
 
         const statLabelY = Math.max(top + 12, statY - 14);
-        const statLabelX = Math.max(
-            left + 45,
-            Math.min(right - 45, statX)
-        );
+        const statLabelX = Math.max(left + 45, Math.min(right - 45, statX));
 
         svg.innerHTML = `
-            <line x1="${left}" y1="${baseline}"
-                  x2="${right}" y2="${baseline}"
-                  stroke="#a8b4c6" stroke-width="1.5"/>
+            <line class="axis" x1="${left}" y1="${baseline}" x2="${right}" y2="${baseline}"/>
 
             ${shadedRegions}
 
-            <path d="${curvePath()}"
-                  fill="none" stroke="#315bd6"
-                  stroke-width="3" stroke-linejoin="round"/>
+            <path class="curve" d="${curvePath()}"/>
 
             ${criticalLines}
 
-            <line x1="${statX}" y1="${baseline}"
-                  x2="${statX}" y2="${statY}"
-                  stroke="#172b49" stroke-width="2.5"/>
+            <line class="stat-line" x1="${statX}" y1="${baseline}" x2="${statX}" y2="${statY}"/>
+            <circle class="stat-dot" cx="${statX}" cy="${statY}" r="5.5"/>
 
-            <circle cx="${statX}" cy="${statY}"
-                    r="5" fill="#172b49"/>
-
-            <text x="${statLabelX}" y="${statLabelY}"
-                  text-anchor="middle" font-size="12"
-                  font-weight="700" fill="#172b49">
-                Test statistic
-            </text>
+            <text class="stat-label" x="${statLabelX}" y="${statLabelY}"
+                  text-anchor="middle">Test statistic</text>
 
             ${ticks}
 
-            <text x="${W / 2}" y="${H - 12}"
-                  text-anchor="middle" font-size="12" fill="#64748b">
-                Standardized test statistic
-            </text>
+            <text class="axis-title" x="${W / 2}" y="${H - 10}"
+                  text-anchor="middle">Standardized test statistic</text>
         `;
 
         description.textContent =
             `${result.tTest ? "Student's t-distribution" : "Standard normal distribution"} · ` +
             `Critical value: ${result.tail === "two" ? "±" : ""}${critical.toFixed(4)} · ` +
             `Test statistic: ${result.statistic.toFixed(4)}`;
+    }
+
+    function describeDf(result) {
+        if (!result.tTest) return "Z-test: uses the normal curve";
+
+        if (!result.twoSample) {
+            return `df = n − 1 = ${result.inputs.n1} − 1`;
+        }
+
+        return `df = min(n₁ − 1, n₂ − 1) = min(${result.inputs.n1 - 1}, ${result.inputs.n2 - 1})`;
+    }
+
+    function collectInputs(twoSample) {
+        const inputs = {
+            mean1: Number(fields.mean1.value),
+            mu0: Number(fields.mu0.value),
+            sd1: Number(fields.sd1.value),
+            n1: Number(fields.n1.value)
+        };
+
+        if (twoSample) {
+            inputs.mean2 = Number(fields.mean2.value);
+            inputs.sd2 = Number(fields.sd2.value);
+            inputs.n2 = Number(fields.n2.value);
+        }
+
+        return inputs;
+    }
+
+    const TEST_NAMES = {
+        oneZ: "One-Sample Z-Test",
+        twoZ: "Two-Sample Z-Test",
+        oneT: "One-Sample t-Test",
+        twoT: "Two-Sample t-Test"
+    };
+
+    const TAIL_NAMES = {
+        two: "Two-tailed (≠)",
+        right: "Right-tailed (>)",
+        left: "Left-tailed (<)"
+    };
+
+    function saveToHistory(result) {
+        const reject = makeDecision(result);
+        const critical = formatNumber(Math.abs(result.criticalValue));
+
+        SW.history.add({
+            type: "hypothesis",
+            title: TEST_NAMES[result.type],
+            summary: `${result.tTest ? "t" : "z"} = ${formatNumber(result.statistic)}  ·  ` +
+                `critical ${result.tail === "two" ? "±" : ""}${critical}  ·  ` +
+                (reject ? "Reject H₀" : "Fail to reject H₀"),
+            input: Object.assign({
+                test: result.type,
+                alpha: result.alpha,
+                tail: result.tail,
+                tailName: TAIL_NAMES[result.tail]
+            }, result.inputs),
+            result: {
+                statistic: result.statistic,
+                criticalValue: result.criticalValue,
+                df: result.df,
+                dfFormula: describeDf(result),
+                rejectionRegion: describeRejectionRegion(result),
+                confidence: (1 - result.alpha) * 100,
+                reject,
+                decision: reject ? "Reject the Null Hypothesis" : "Fail to reject the Null Hypothesis"
+            }
+        });
+    }
+
+    /* -----------------------------------------
+       SAMPLE DATA
+    ----------------------------------------- */
+
+    // Illustrative values; they change with the selected test.
+    const SAMPLES = {
+        oneZ: { mean1: 75, mu0: 70, sd1: 10, n1: 36 },
+        twoZ: { mean1: 78, mu0: 0, sd1: 10, n1: 40, mean2: 74, sd2: 12, n2: 45 },
+        oneT: { mean1: 53.8, mu0: 50, sd1: 6.4, n1: 16 },
+        twoT: { mean1: 82.4, mu0: 0, sd1: 6.1, n1: 12, mean2: 76.9, sd2: 7.3, n2: 15 }
+    };
+
+    function fillFields(values) {
+        Object.keys(fields).forEach(key => {
+            fields[key].value = values[key] === undefined ? "" : values[key];
+        });
     }
 
     /* -----------------------------------------
@@ -665,7 +720,9 @@ document.addEventListener("DOMContentLoaded", () => {
         $("degreesFreedom").textContent =
             result.df === null
                 ? "Not applicable"
-                : formatNumber(result.df, 2);
+                : formatNumber(result.df, 0);
+
+        $("dfFormula").textContent = describeDf(result);
 
         $("resultStatus").textContent =
             result.tTest ? "t-test calculated" : "Z-test calculated";
@@ -718,6 +775,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 calculateCriticalValue(currentResult);
 
             displayResults(currentResult);
+            saveToHistory(currentResult);
         } catch (error) {
             formError.textContent = error.message;
             formError.hidden = false;
@@ -735,6 +793,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 0);
     });
 
+    $("loadSample").addEventListener("click", () => {
+        fillFields(SAMPLES[testType.value]);
+        currentResult = null;
+        resultsCard.hidden = true;
+        formError.hidden = true;
+        fields.mean1.focus({ preventScroll: true });
+    });
+
     updateTestFields();
+
+    // Re-open an analysis chosen from the History page
+    const restored = SW.history.takeRestore("hypothesis");
+
+    if (restored) {
+        const input = restored.input;
+
+        testType.value = input.test;
+        $("alpha").value = Number(input.alpha).toFixed(2);
+        $("tail").value = input.tail;
+        updateTestFields();
+        fillFields(input);
+
+        try {
+            currentResult = calculateStatistic();
+            currentResult.criticalValue = calculateCriticalValue(currentResult);
+            displayResults(currentResult);
+        } catch (error) {
+            formError.textContent = error.message;
+            formError.hidden = false;
+        }
+    }
 });
 

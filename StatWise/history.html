@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis History | StatWise</title>
+    <link rel="icon" type="image/png" href="assets/logo-mark-light.png">
+
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <script src="js/app.js" defer></script>
+    <script src="js/charts.js" defer></script>
+    <script src="js/history.js" defer></script>
+</head>
+<body data-nav="history" data-section="Workspace" data-title="Analysis History">
+
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-content">
+        <header class="topbar" id="topbar"></header>
+
+        <main class="page-content">
+
+            <section class="page-header">
+                <div>
+                    <span class="eyebrow">Your saved work</span>
+                    <h1>Analysis <em>History</em></h1>
+                    <p>Every regression and hypothesis test you run is saved here. Select a record to open its full details right below it.</p>
+                </div>
+            </section>
+
+            <div class="history-toolbar">
+                <div class="filter-tabs" role="group" aria-label="Filter history">
+                    <button type="button" class="filter-tab" data-filter="all" aria-pressed="true">All</button>
+                    <button type="button" class="filter-tab" data-filter="regression" aria-pressed="false">Regression</button>
+                    <button type="button" class="filter-tab" data-filter="hypothesis" aria-pressed="false">Hypothesis</button>
+                </div>
+                <button type="button" class="btn btn-danger btn-sm" id="clearHistory">Clear all history</button>
+            </div>
+
+            <div class="history-list" id="historyList"></div>
+
+            <footer class="page-footer">
+                <span>&copy; <span data-year></span> StatWise</span>
+                <span>History is stored only in this browser.</span>
+            </footer>
+        </main>
+    </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+</body>
+</html>

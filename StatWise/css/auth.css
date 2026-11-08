@@ -1,0 +1,104 @@
+/* ==========================================================
+   STATWISE — LOGIN / SIGN UP
+   ========================================================== */
+
+body.auth-page { background: var(--bg); }
+
+.auth-shell {
+    min-height: 100vh;
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+}
+
+/* ----- left: brand panel ----- */
+
+.auth-brand {
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 48px 56px;
+    background:
+        radial-gradient(900px 500px at 0% 0%, var(--bg-wash), transparent 70%),
+        var(--bg);
+    border-right: 1px solid var(--border);
+}
+
+.auth-logo { width: min(360px, 80%); }
+
+.auth-pitch { position: relative; z-index: 1; margin: 40px 0; }
+.auth-pitch h1 { font-size: clamp(2.6rem, 4.4vw, 3.8rem); line-height: 1.08; max-width: 12ch; }
+.auth-pitch p { margin-top: 18px; font-size: 1.2rem; color: var(--muted); max-width: 32ch; }
+
+.auth-points { margin-top: 28px; display: grid; gap: 12px; list-style: none; }
+.auth-points li { display: flex; align-items: center; gap: 12px; color: var(--text-soft); font-weight: 500; }
+.auth-points li::before {
+    content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none;
+}
+
+.auth-art { position: absolute; right: 0; bottom: 0; width: 300px; pointer-events: none; opacity: .9; }
+.auth-art .bar { fill: var(--accent-soft); }
+.auth-art .trend { stroke: var(--primary); stroke-width: 3; fill: none; stroke-linecap: round; }
+.auth-art .dot { fill: var(--primary); }
+.auth-art .spark { fill: var(--accent); }
+
+.auth-foot { position: relative; z-index: 1; color: var(--muted); font-size: .92rem; }
+
+/* ----- right: form ----- */
+
+.auth-panel {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 40px 32px; position: relative;
+    background: var(--surface);
+}
+
+.auth-theme { position: absolute; top: 24px; right: 24px; }
+
+.auth-card { width: 100%; max-width: 440px; }
+
+.auth-mobile-logo { display: none; width: 220px; margin: 0 auto 28px; }
+
+.auth-tabs {
+    display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 30px;
+    border-bottom: 1px solid var(--border);
+}
+.auth-tab {
+    padding: 14px 0; border: 0; border-bottom: 3px solid transparent; margin-bottom: -1px;
+    background: none; color: var(--muted); font-size: 1.05rem; font-weight: 600;
+}
+.auth-tab:hover { color: var(--text); }
+.auth-tab[aria-selected="true"] { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700; }
+
+.auth-card h2 { font-size: 2.1rem; margin-bottom: 6px; }
+.auth-card .sub { color: var(--muted); margin-bottom: 26px; font-size: 1.05rem; }
+
+.auth-form { display: grid; gap: 18px; }
+
+.input-wrap { position: relative; }
+.input-wrap input { padding-right: 52px; }
+.input-wrap .toggle-pw {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; display: grid; place-items: center;
+    border: 0; border-radius: 10px; background: none; color: var(--muted);
+}
+.input-wrap .toggle-pw:hover { color: var(--primary); background: var(--surface-2); }
+
+.divider {
+    display: flex; align-items: center; gap: 14px; margin: 22px 0;
+    color: var(--muted); font-size: .92rem;
+}
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+.auth-switch { margin-top: 22px; text-align: center; color: var(--muted); font-size: .98rem; }
+.auth-switch button { border: 0; background: none; color: var(--link); font-weight: 700; padding: 2px 4px; }
+.auth-switch button:hover { text-decoration: underline; }
+
+.auth-fineprint {
+    margin-top: 22px; padding: 12px 14px; border-radius: 12px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--muted); font-size: .88rem; line-height: 1.5;
+}
+
+@media (max-width: 960px) {
+    .auth-shell { grid-template-columns: 1fr; }
+    .auth-brand { display: none; }
+    .auth-mobile-logo { display: block; }
+    .auth-panel { padding: 72px 20px 40px; justify-content: flex-start; }
+}

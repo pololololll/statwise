@@ -16,7 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultStatus = document.getElementById("resultStatus");
 
     let regression = null;
-    let chart = null;
+    const chartBox = document.getElementById("regressionChart");
+    const tableScroll = document.getElementById("tableScroll");
+    const scrollHint = document.getElementById("scrollHint");
+    const SW = window.StatWise;
+
+    const xNameInput = document.getElementById("xName");
+    const yNameInput = document.getElementById("yName");
+    const xHead = document.getElementById("xHead");
+    const yHead = document.getElementById("yHead");
+    const insightEmpty = document.getElementById("insightEmpty");
+    const insightContent = document.getElementById("insightContent");
 
     const numberFormat = new Intl.NumberFormat("en-US", {
         maximumFractionDigits: 4
@@ -25,6 +35,41 @@ document.addEventListener("DOMContentLoaded", () => {
     function formatNumber(value) {
         if (!Number.isFinite(value)) return "—";
         return numberFormat.format(value);
+    }
+
+    // Names typed by the user; fall back to plain X / Y when left blank.
+    function names() {
+        return {
+            x: xNameInput.value.trim() || "X",
+            y: yNameInput.value.trim() || "Y"
+        };
+    }
+
+    // Keep everything that shows a variable name in sync with the two name fields.
+    function applyNames() {
+        const n = names();
+        const xTyped = xNameInput.value.trim();
+        const yTyped = yNameInput.value.trim();
+
+        xHead.textContent = xTyped || "X Value";
+        yHead.textContent = yTyped || "Y Value";
+
+        dataRows.querySelectorAll(".x-input").forEach(input =>
+            input.setAttribute("aria-label", `${n.x} value`));
+        dataRows.querySelectorAll(".y-input").forEach(input =>
+            input.setAttribute("aria-label", `${n.y} value`));
+
+        document.getElementById("predictLabel").textContent = `${n.x} (X)`;
+        document.getElementById("predictX").placeholder = `Enter ${n.x}`;
+        document.getElementById("predictionHint").textContent =
+            `Enter a value of ${n.x} to estimate ${n.y}.`;
+        document.querySelector(".prediction-card h3").textContent = `Predict ${n.y}`;
+
+        if (regression) {
+            document.getElementById("interpretationResult").textContent =
+                interpret(regression);
+            renderChart(regression);
+        }
     }
 
     function createRow(x = "", y = "") {
@@ -51,12 +96,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         dataRows.appendChild(row);
         updateRowNumbers();
+        applyRowLabels(row);
+        return row;
+    }
+
+    function applyRowLabels(row) {
+        const n = names();
+        row.querySelector(".x-input").setAttribute("aria-label", `${n.x} value`);
+        row.querySelector(".y-input").setAttribute("aria-label", `${n.y} value`);
     }
 
     function updateRowNumbers() {
         [...dataRows.rows].forEach((row, index) => {
             row.cells[0].textContent = index + 1;
         });
+
+        // The table shows 5 rows and scrolls after that.
+        scrollHint.hidden = dataRows.rows.length <= 5;
     }
 
     function resetResults() {
@@ -71,13 +127,14 @@ document.addEventListener("DOMContentLoaded", () => {
         resultStatus.textContent = "Waiting for data";
         resultStatus.classList.remove("ready");
 
+        insightEmpty.hidden = false;
+        insightContent.hidden = true;
+
         document.getElementById("chartCaption").textContent =
             "Calculate a regression model to display your chart.";
 
-        if (chart) {
-            chart.destroy();
-            chart = null;
-        }
+        chartBox.innerHTML =
+            '<div class="chart-empty">Your chart will appear here after you calculate.</div>';
     }
 
     function getData() {
@@ -188,24 +245,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }x`;
     }
 
+    // Short, plain-language interpretation using the user's variable names.
     function interpret(result) {
-        const { slope, intercept, correlation } = result;
-        let message = `The regression equation is ${buildEquation(intercept, slope)}. `;
+        const { slope, correlation } = result;
+        const n = names();
+        let message;
 
         if (slope > 0) {
-            message += `For each one-unit increase in X, the predicted value of Y increases by ${formatNumber(slope)} units. `;
+            message = `For every 1-unit increase in ${n.x}, ${n.y} is predicted to increase by ${formatNumber(slope)}.`;
         } else if (slope < 0) {
-            message += `For each one-unit increase in X, the predicted value of Y decreases by ${formatNumber(Math.abs(slope))} units. `;
+            message = `For every 1-unit increase in ${n.x}, ${n.y} is predicted to decrease by ${formatNumber(Math.abs(slope))}.`;
         } else {
-            message += "The fitted regression line has a slope of zero. ";
+            message = `${n.y} is predicted to stay the same as ${n.x} changes.`;
         }
 
-        message += `The y-intercept is ${formatNumber(intercept)}, the predicted Y value when X is zero. `;
-
         if (correlation === null) {
-            message += "Pearson's correlation coefficient is undefined because Y does not vary.";
+            message += ` The correlation cannot be computed because ${n.y} does not vary.`;
         } else {
-            message += `Pearson's correlation coefficient is r = ${formatNumber(correlation)}, describing the strength and direction of the linear relationship.`;
+            const label = strengthLabel(correlation).toLowerCase();
+            message += ` ${n.x} and ${n.y} show a ${label} correlation (r = ${formatNumber(correlation)}).`;
         }
 
         return message;
@@ -306,7 +364,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? "Undefined"
                 : formatNumber(result.correlation);
 
-        // Interpretation
+        // Interpretation + prediction card (separate card below)
+        insightEmpty.hidden = true;
+        insightContent.hidden = false;
         document.getElementById("interpretationResult").textContent =
             interpret(result);
 
@@ -314,8 +374,9 @@ document.addEventListener("DOMContentLoaded", () => {
         renderRelationship(result);
 
         // Prediction
+        applyNames();
         document.getElementById("predictionOutput").textContent =
-            "Enter an X value to calculate a prediction.";
+            `Enter a value of ${names().x} to calculate a prediction.`;
 
         document.getElementById("predictX").value = "";
 
@@ -324,105 +385,59 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderChart(result) {
-        const canvas = document.getElementById("regressionChart");
-        const context = canvas.getContext("2d");
-
-        if (chart) {
-            chart.destroy();
-        }
-
-        const xValues = result.data.map(point => point.x);
-        const minX = Math.min(...xValues);
-        const maxX = Math.max(...xValues);
-
-        const lineData = minX === maxX
-            ? [
-                { x: minX, y: result.intercept + result.slope * minX },
-                { x: maxX, y: result.intercept + result.slope * maxX }
-            ]
-            : [
-                { x: minX, y: result.intercept + result.slope * minX },
-                { x: maxX, y: result.intercept + result.slope * maxX }
-            ];
-
-        chart = new Chart(context, {
-            type: "scatter",
-            data: {
-                datasets: [
-                    {
-                        label: "Observed Data",
-                        data: result.data,
-                        backgroundColor: "#315bd6",
-                        borderColor: "#315bd6",
-                        pointRadius: 5,
-                        pointHoverRadius: 7
-                    },
-                    {
-                        label: "Regression Line",
-                        data: lineData,
-                        type: "line",
-                        parsing: false,
-                        borderColor: "#e49a38",
-                        borderWidth: 3,
-                        pointRadius: 0,
-                        tension: 0,
-                        fill: false
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    mode: "nearest",
-                    intersect: false
-                },
-                plugins: {
-                    legend: {
-                        position: "bottom",
-                        labels: {
-                            usePointStyle: true,
-                            padding: 20,
-                            font: { size: 12 }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return `${context.dataset.label}: (` +
-                                    `${formatNumber(context.parsed.x)}, ` +
-                                    `${formatNumber(context.parsed.y)})`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        type: "linear",
-                        title: {
-                            display: true,
-                            text: "X — Independent Variable"
-                        },
-                        grid: { color: "#edf0f6" }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: "Y — Dependent Variable"
-                        },
-                        grid: { color: "#edf0f6" }
-                    }
-                }
-            }
+        SWCharts.scatter(chartBox, {
+            data: result.data,
+            intercept: result.intercept,
+            slope: result.slope,
+            xLabel: xNameInput.value.trim(),
+            yLabel: yNameInput.value.trim()
         });
 
         document.getElementById("chartCaption").textContent =
             `The chart displays ${result.n} observed data points and the least-squares regression line.`;
     }
 
+    function strengthLabel(r) {
+        if (r === null) return "Undefined";
+        const m = Math.abs(r);
+        const label = m >= 0.90 ? "Very high" : m >= 0.70 ? "High" :
+                      m >= 0.50 ? "Moderate" : m >= 0.30 ? "Low" : "Negligible";
+        return `${label} ${r > 0 ? "positive" : r < 0 ? "negative" : ""}`.trim();
+    }
+
+    function saveToHistory(result) {
+        const r = result.correlation;
+
+        SW.history.add({
+            type: "regression",
+            title: "Simple Linear Regression",
+            summary: `${buildEquation(result.intercept, result.slope)}  ·  r = ${
+                r === null ? "undefined" : formatNumber(r)} (${result.n} pairs)`,
+            input: {
+                data: result.data,
+                xName: xNameInput.value.trim(),
+                yName: yNameInput.value.trim()
+            },
+            result: {
+                n: result.n,
+                equation: buildEquation(result.intercept, result.slope),
+                slope: result.slope,
+                intercept: result.intercept,
+                correlation: r,
+                rSquared: result.rSquared,
+                strength: strengthLabel(r),
+                interpretation: interpret(result)
+            }
+        });
+    }
+
     addRowButton.addEventListener("click", () => {
-        createRow();
+        const row = createRow();
         errorMessage.textContent = "";
+
+        // Keep the new row in view when the table is scrolling.
+        tableScroll.scrollTop = tableScroll.scrollHeight;
+        row.querySelector(".x-input").focus({ preventScroll: true });
     });
 
     dataRows.addEventListener("click", event => {
@@ -436,10 +451,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     clearButton.addEventListener("click", () => {
+        xNameInput.value = "";
+        yNameInput.value = "";
         dataRows.innerHTML = "";
         createRow();
         createRow();
         createRow();
+        applyNames();
         resetResults();
         errorMessage.textContent = "";
     });
@@ -451,9 +469,13 @@ document.addEventListener("DOMContentLoaded", () => {
             [7, 98], [8, 105], [9, 112], [10, 118], [11, 122]
         ];
 
+        xNameInput.value = "Study Hours";
+        yNameInput.value = "Exam Score";
+
         dataRows.innerHTML = "";
 
         sample.forEach(([x, y]) => createRow(x, y));
+        applyNames();
 
         errorMessage.textContent = "";
         resetResults();
@@ -466,6 +488,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = getData();
             regression = calculate(data);
             renderResults(regression);
+            saveToHistory(regression);
         } catch (error) {
             errorMessage.textContent = error.message;
         }
@@ -482,7 +505,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (rawValue === "" || !Number.isFinite(Number(rawValue))) {
-            output.textContent = "Please enter a valid numerical X value.";
+            output.textContent = `Please enter a valid number for ${names().x}.`;
             return;
         }
 
@@ -492,22 +515,41 @@ document.addEventListener("DOMContentLoaded", () => {
         const minX = Math.min(...regression.data.map(point => point.x));
         const maxX = Math.max(...regression.data.map(point => point.x));
 
-        let message = `For X = ${formatNumber(x)}, the predicted Y is ${formatNumber(y)}.`;
+        const n = names();
+        let message = `If ${n.x} = ${formatNumber(x)}, the predicted ${n.y} is ${formatNumber(y)}.`;
 
         if (x < minX || x > maxX) {
             message +=
-                " Warning: this is outside the observed X range, so the prediction is an extrapolation and may be unreliable.";
+                " Warning: this value is outside the range of your data, so the prediction may be unreliable.";
         }
 
         output.textContent = message;
     });
 
-    // Footer year
-    const yearElement = document.getElementById("currentYear");
+    xNameInput.addEventListener("input", applyNames);
+    yNameInput.addEventListener("input", applyNames);
 
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+    // Start with three empty rows (placeholders show the expected format)
+    [["2", "5"], ["4", "7"], ["6", "9"]].forEach(([x, y]) => {
+        const row = createRow();
+        row.querySelector(".x-input").placeholder = `e.g. ${x}`;
+        row.querySelector(".y-input").placeholder = `e.g. ${y}`;
+    });
+
+    // Re-open an analysis chosen from the History page
+    const restored = SW.history.takeRestore("regression");
+
+    if (restored) {
+        xNameInput.value = restored.input.xName || "";
+        yNameInput.value = restored.input.yName || "";
+        dataRows.innerHTML = "";
+        restored.input.data.forEach(point => createRow(point.x, point.y));
+
+        try {
+            regression = calculate(getData());
+            renderResults(regression);
+        } catch (error) {
+            errorMessage.textContent = error.message;
+        }
     }
-
-    updateRowNumbers();
 });
